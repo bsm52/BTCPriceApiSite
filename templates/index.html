@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+</head>
+<body onload="getPrice()">
+    This is a test
+
+    <h1 id="BtcPrice"></h1>
+
+
+
+</body>
+<script>
+const interval = setInterval(function() {
+   getPrice();
+ }, 5000);
+
+function getPrice(){
+
+    var request = new XMLHttpRequest();
+
+    // Open a new connection, using the GET request on the URL endpoint
+    request.open('GET', 'http://127.0.0.1:5000/btcprice', true);
+
+    request.onload = function () {
+        // Begin accessing JSON data here
+        var data = JSON.parse(this.response);
+
+        var response = data["bpi"]["USD"]["rate"];
+        console.log(response);
+
+        var header = document.getElementById("BtcPrice");
+
+        header.innerHTML = response;
+    }
+
+    request.send();
+
+
+}
+
+
+</script>
+</html>
